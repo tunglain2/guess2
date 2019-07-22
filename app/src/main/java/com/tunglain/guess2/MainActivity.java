@@ -2,6 +2,7 @@ package com.tunglain.guess2;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -18,10 +19,12 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int REQUEST_LOGIN = 100;
     private EditText edNumber;
     private Button bGuess;
     private TextView tvCounter;
     private GuessViewModel viewModel;
+    private boolean login = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (!login) {
+            Intent intent = new Intent(this,LoginActivity.class);
+            startActivityForResult(intent,REQUEST_LOGIN);
+        }
+
 
         viewModel = ViewModelProviders.of(this).get(GuessViewModel.class);
 
@@ -73,6 +82,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_LOGIN) {
+            if (resultCode != RESULT_OK) {
+                finish();
+            }
+        }
     }
 
     private void findViews() {
