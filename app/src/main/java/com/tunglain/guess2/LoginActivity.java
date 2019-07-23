@@ -12,8 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText email;
-    private EditText password;
+    private EditText edEmail;
+    private EditText edPassword;
     private TextView emailText;
     private TextView pwdText;
     private Button login;
@@ -40,10 +40,20 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.validate(email.getText().toString(),password.getText().toString());
+                String email = edEmail.getText().toString();
+                String password = edPassword.getText().toString();
+                viewModel.validate(email,password);
                 if (isDataValid) {
-                    setResult(RESULT_OK);
-                    finish();
+                    if ("steven@gmail.com".equals(email) && "Aa123456".equals(password)) {
+                        setResult(RESULT_OK);
+                        finish();
+                    }else {
+                        new AlertDialog.Builder(LoginActivity.this)
+                                .setTitle("登入結果")
+                                .setMessage("帳號密碼錯誤")
+                                .setPositiveButton("OK",null)
+                                .show();
+                    }
                 }
             }
         });
@@ -56,8 +66,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void findViews() {
-        email = findViewById(R.id.mail);
-        password = findViewById(R.id.password);
+        edEmail = findViewById(R.id.mail);
+        edPassword = findViewById(R.id.password);
         emailText = findViewById(R.id.tv_mail);
         pwdText = findViewById(R.id.tv_password);
         login = findViewById(R.id.login);

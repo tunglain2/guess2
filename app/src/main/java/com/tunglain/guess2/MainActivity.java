@@ -10,12 +10,15 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,8 +72,25 @@ public class MainActivity extends AppCompatActivity {
         bGuess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int number = Integer.parseInt(edNumber.getText().toString());
-                viewModel.setNumber(number);
+                if (!"".equals(edNumber.getText().toString())) {
+                    if (!isNumeric(edNumber.getText().toString())) {
+                        new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("Result")
+                                .setMessage("輸入值不是數字")
+                                .setNeutralButton("OK", null)
+                                .show();
+                    }else{
+                        int number = Integer.parseInt(edNumber.getText().toString());
+                        viewModel.setNumber(number);
+                    }
+                }else {
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("Result")
+                            .setMessage("輸入值是空值")
+                            .setNeutralButton("OK", null)
+                            .show();
+                }
+
             }
         });
 
@@ -85,6 +105,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /**
+     *  判斷string是否全為數字
+     */
+    public static boolean isNumeric(String str) {
+        Pattern pattern = Pattern.compile("[0-9]*");
+
+        return pattern.matcher(str).matches();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
