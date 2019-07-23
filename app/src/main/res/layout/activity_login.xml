@@ -24,6 +24,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textEmailAddress"
+        android:text="steven@gmail.com"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -44,6 +45,7 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPassword"
+        android:text="Aa123456"
         app:layout_constraintStart_toStartOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -62,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="16dp"
         android:layout_marginStart="8dp"
-        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toEndOf="@+id/mail"
         app:layout_constraintTop_toTopOf="@+id/mail" />
 
@@ -72,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         app:layout_constraintStart_toEndOf="@+id/password"
         app:layout_constraintTop_toTopOf="@+id/password" />
 </android.support.constraint.ConstraintLayout>
